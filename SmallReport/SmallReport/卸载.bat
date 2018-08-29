@@ -1,0 +1,2 @@
+SmallReport.exe uninstall
+pause
