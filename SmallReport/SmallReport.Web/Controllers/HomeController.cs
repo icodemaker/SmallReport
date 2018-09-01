@@ -1,8 +1,5 @@
-﻿using SmallReport.Tool;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using SmallReport.Assist;
+using SmallReport.Assist.WeChat;
 using System.Web.Mvc;
 
 namespace SmallReport.Web.Controllers
@@ -13,6 +10,17 @@ namespace SmallReport.Web.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public void Msg()
+        {
+            
+            if (WeChatHelper.Valid())
+            {
+                var wmsg = WeChatHelper.GetXmlMessage();
+                LogHelper.Debug($"msg come in, msgId:{wmsg.MediaId}");
+                ResponseHelper.ResponseMsg(wmsg);
+            }
         }
     }
 }

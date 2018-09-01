@@ -2,11 +2,11 @@
 using System;
 using System.Text;
 
-namespace SmallReport.Tool
+namespace SmallReport.Assist
 {
     public class LogHelper
     {
-        #region Debug级别日志
+        #region Debug
 
         public static void Debug(Exception exception)
         {
@@ -32,7 +32,7 @@ namespace SmallReport.Tool
 
         #endregion
 
-        #region Info级别日志
+        #region Info
 
         public static void Info(Exception exception)
         {
@@ -58,7 +58,7 @@ namespace SmallReport.Tool
 
         #endregion
 
-        #region Warn级别日志
+        #region Warn
 
         public static void Warn(Exception exception)
         {
@@ -89,7 +89,7 @@ namespace SmallReport.Tool
 
         #endregion
 
-        #region Error级别日志
+        #region Error
 
         public static void Error(Exception exception)
         {
@@ -115,7 +115,7 @@ namespace SmallReport.Tool
 
         #endregion
 
-        #region Fata级别日志
+        #region Fata
 
         public static void Fata(Exception exception)
         {

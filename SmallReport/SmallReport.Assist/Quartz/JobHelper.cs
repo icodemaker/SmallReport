@@ -1,4 +1,5 @@
 ﻿using Quartz;
+using SmallReport.Assist;
 using System;
 using System.Collections.Concurrent;
 

@@ -1,4 +1,4 @@
-﻿using SmallReport.Tool;
+﻿using SmallReport.Assist;
 using Topshelf;
 
 namespace SmallReport
@@ -23,16 +23,16 @@ namespace SmallReport
                 srv.RunAsLocalSystem();
                 srv.StartAutomatically();
 
-                srv.SetDescription("小小报警服务.定时轮询异常.");
+                srv.SetDescription("SmallReport Exceptions");
                 srv.SetDisplayName("SmallReport");
                 srv.SetServiceName("SmallReport");
 
-                srv.AfterInstall(() => LogHelper.Info("服务安装"));
-                srv.AfterUninstall(() => LogHelper.Info("服务已卸载"));
+                srv.AfterInstall(() => LogHelper.Info("SmallReport Install"));
+                srv.AfterUninstall(() => LogHelper.Info("SmallReport UnInstall"));
 
                 srv.OnException(ex =>
                 {
-                    LogHelper.Error("服务遇到未处理的异常", ex);
+                    LogHelper.Error("SmallReport Unknown Exception", ex);
                 });
             });
         }

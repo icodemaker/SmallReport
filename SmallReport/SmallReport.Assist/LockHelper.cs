@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace SmallReport.Tool
+namespace SmallReport.Assist
 {
     public class LockHelper: IDisposable
     {

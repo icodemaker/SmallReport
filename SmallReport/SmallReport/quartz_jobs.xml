@@ -18,7 +18,7 @@
         <job-name>StudentReqSyncJob</job-name>
         <job-group>SmallReport</job-group>
         <cron-expression>0/10 * * * * ?</cron-expression>
-        <!-- 每10秒调度 -->
+        <!-- 10s -->
       </cron>
     </trigger>
   </schedule>
