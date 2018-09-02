@@ -1,5 +1,6 @@
 ﻿using Quartz;
 using SmallReport.Assist;
+using SmallReport.Assist.WeChat;
 using SmallReport.Service;
 using SmallReport.Tool;
 using System;
@@ -30,7 +31,11 @@ namespace SmallReport.Jobs
             try
             {
                 var HasValue = new ReqSyncService().CheckReqSync();
-                LogHelper.Error("轮询需求同步问题，" + (HasValue ? "有异常数据" : "") + "");
+                if (HasValue)
+                {
+                    LogHelper.Error("检查需求同步问题发现异常数据");
+                    MessageHelper.SendExpMsg();
+                }
             }
             catch (Exception e)
             {
