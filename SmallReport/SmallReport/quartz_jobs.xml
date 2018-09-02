@@ -17,8 +17,25 @@
         <group>SmallReport</group>
         <job-name>StudentReqSyncJob</job-name>
         <job-group>SmallReport</job-group>
-        <cron-expression>0/10 * * * * ?</cron-expression>
-        <!-- 10s -->
+        <cron-expression>0 0/10 * * * ?</cron-expression>
+        <!-- 10m -->
+      </cron>
+    </trigger>
+    <job>
+      <name>CheckMatchIdNullJob</name>
+      <group>SmallReport</group>
+      <job-type>SmallReport.Jobs.CheckMatchIdNullJob,SmallReport</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+    <trigger>
+      <cron>
+        <name>CheckMatchIdNullJob.Trigger</name>
+        <group>SmallReport</group>
+        <job-name>CheckMatchIdNullJob</job-name>
+        <job-group>SmallReport</job-group>
+        <cron-expression>0 0/10 * * * ?</cron-expression>
+        <!-- 10m -->
       </cron>
     </trigger>
   </schedule>

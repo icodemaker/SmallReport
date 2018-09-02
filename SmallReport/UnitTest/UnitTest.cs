@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SmallReport.Assist.WeChat;
+using SmallReport.Service;
 
 namespace UnitTest
 {
@@ -9,7 +11,7 @@ namespace UnitTest
         [TestMethod]
         public void LogTest()
         {
-	//todo:
+
         }
     }
 }

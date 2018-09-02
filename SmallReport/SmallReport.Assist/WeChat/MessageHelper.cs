@@ -101,5 +101,33 @@ namespace SmallReport.Assist.WeChat
             builder.Append("</xml>");
             return builder.ToString();
         }
+
+        #region Template Msg
+        public static void SendExpMsg()
+        {
+            string text = string.Format(@"
+				{{ 
+				    ""touser"": ""{0}"",
+				    ""template_id"": ""{1}"",
+                    ""topcolor"":""#FF0000"",
+                    ""url"":"""",
+				    ""data"": {{
+						""first"":{{""value"":""{2}"",""color"":""#173177""}},
+						""keyword1"":{{""value"":""{3}"",""color"":""#173177""}},
+						""keyword2"":{{""value"":""{4}"",""color"":""#173177""}},
+                        ""keyword3"":{{""value"":""{5}"",""color"":""#173177""}},
+                        ""remark"":{{""value"":""{6}"",""color"":""#173177""}}
+					}}
+				}}", "oc0Qp0m9wYecC0cBihpsDdsS-4FU",
+                   "u6slk3ft-7x4jRR8lgy-ZlvNtGbMzpP3zeOyX4dGN_0",
+                   "数据发现异常",
+                   "同步异常或空指针",
+                   DateTime.Now,
+                   "严重错误",
+                   "调度发现异常数据，请速度修复并排查日志");
+            WeChatHelper.SendTemplateMsg(text);
+        }
+
+        #endregion
     }
 }

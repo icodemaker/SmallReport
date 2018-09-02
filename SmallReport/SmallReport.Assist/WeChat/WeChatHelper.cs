@@ -46,9 +46,9 @@ namespace SmallReport.Assist.WeChat
             string timestamp = HttpContext.Current.Request.QueryString["timestamp"];
             string nonce = HttpContext.Current.Request.QueryString["nonce"];
             string[] ArrTmp = { Token, timestamp, nonce };
-            Array.Sort(ArrTmp);     //字典排序   
+            Array.Sort(ArrTmp);
             string tmpStr = string.Join("", ArrTmp);
-            tmpStr = FormsAuthentication.HashPasswordForStoringInConfigFile(tmpStr, "SHA1");
+            tmpStr = CommonHelper.Md5Hash(tmpStr);
             tmpStr = tmpStr.ToLower();
             if (tmpStr == signature)
             {
@@ -115,8 +115,8 @@ namespace SmallReport.Assist.WeChat
         
         public static string GetExistAccessToken()
         {
-            string filePath = HttpContext.Current.Server.MapPath("~/Config/AuthToken.config");
-            StreamReader str = new StreamReader(filePath, System.Text.Encoding.UTF8);
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Config\\AuthToken.config";
+            StreamReader str = new StreamReader(filePath, Encoding.UTF8);
             XmlDocument xml = new XmlDocument();
             xml.Load(str);
             str.Close();
@@ -178,7 +178,7 @@ namespace SmallReport.Assist.WeChat
             try
             {
                 string url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + WeChatHelper.GetExistAccessToken() + "&type=jsapi";
-                string tt = WeChatHelper.HttpGet(url);
+                string tt = HttpGet(url);
                 if (!string.IsNullOrEmpty(tt))
                 {
                     return JSONHelper.Decode<JsTicketModel>(tt);
@@ -201,7 +201,7 @@ namespace SmallReport.Assist.WeChat
             string nonce_str = Guid.NewGuid().ToString().Replace("-", "");
             string timestamp = ticks.ToString();
             string sign = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + nonce_str + "&timestamp=" + timestamp + "&url=" + url;
-            string signature = FormsAuthentication.HashPasswordForStoringInConfigFile(sign, "SHA1");
+            string signature = CommonHelper.Md5Hash(sign);
             map.url = url;
             map.jsapi_ticket = jsapi_ticket;
             map.nonceStr = nonce_str;
@@ -247,6 +247,61 @@ namespace SmallReport.Assist.WeChat
         public static T ParseFromJson<T>(string szJson)
         {
             return JSONHelper.Decode<T>(szJson);
+        }
+
+        public static string SendTemplateMsg(string postContent)
+        {
+            try
+            {
+                string token = GetExistAccessToken();
+                string url = string.Format("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}", token);
+                return Post(url, postContent);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public static string Post(string url, string param)
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.Accept = "*/*";
+            request.Timeout = 15000;
+            request.AllowAutoRedirect = false;
+
+            StreamWriter requestStream = null;
+            WebResponse response = null;
+            string responseStr = null;
+
+            try
+            {
+                requestStream = new StreamWriter(request.GetRequestStream());
+                requestStream.Write(param);
+                requestStream.Close();
+
+                response = request.GetResponse();
+                if (response != null)
+                {
+                    StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                    responseStr = reader.ReadToEnd();
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error("post to wechat ex:" + ex.Message + "。time:" + DateTime.Now);
+            }
+            finally
+            {
+                request = null;
+                requestStream = null;
+                response = null;
+            }
+            return responseStr;
         }
         #endregion
     }

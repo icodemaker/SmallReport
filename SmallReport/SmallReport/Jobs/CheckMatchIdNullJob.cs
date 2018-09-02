@@ -6,7 +6,7 @@ using System;
 
 namespace SmallReport.Jobs
 {
-    public class StudentReqSyncJob : IJob
+    public class CheckMatchIdNullJob : IJob
     {
         #region Attr
         private static readonly object LockObj = new object();
@@ -19,18 +19,18 @@ namespace SmallReport.Jobs
                 using (var lockHelper = new LockHelper(LockObj))
                 {
                     if (lockHelper.IsTimeout) return;
-                    var result = ReqSync();
+                    var result = CheckMatchId();
                 }
             });
         }
 
-        public bool ReqSync()
+        public bool CheckMatchId()
         {
             var flag = true;
             try
             {
-                var HasValue = new ReqSyncService().CheckReqSync();
-                LogHelper.Error("轮询需求同步问题，" + (HasValue ? "有异常数据" : "") + "");
+                var HasValue = new ReqSyncService().CheckMatchIdNull();
+                LogHelper.Error("检查空指针引发的MatchingId Null问题，" + (HasValue ? "有异常数据" : "") + "");
             }
             catch (Exception e)
             {

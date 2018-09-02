@@ -108,6 +108,8 @@
     <Content Include="Config\AppSettings.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Config\ConnectionStrings.config" />
+    <Content Include="Config\AuthToken.config" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">

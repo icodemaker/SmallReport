@@ -46,13 +46,32 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="Config\AuthToken.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmallReport.Assist\SmallReport.Assist.csproj">
+      <Project>{2900acaf-c94b-499c-818a-3684430a85b9}</Project>
+      <Name>SmallReport.Assist</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmallReport.Entity\SmallReport.Entity.csproj">
+      <Project>{0c633d45-4199-416f-9591-f384f667fb02}</Project>
+      <Name>SmallReport.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmallReport.Service\SmallReport.Service.csproj">
+      <Project>{3fba1894-63d4-4b0b-a068-4df5ee04d539}</Project>
+      <Name>SmallReport.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
