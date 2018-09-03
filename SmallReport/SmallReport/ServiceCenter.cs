@@ -1,6 +1,6 @@
 ﻿using Quartz;
 using Quartz.Impl;
-using SmallReport.Tool;
+using SmallReport.Assist;
 
 namespace SmallReport
 {
@@ -16,25 +16,25 @@ namespace SmallReport
         public void Start()
         {
             _globalScheduler.Start();
-            LogHelper.Info("服务启动");
+            LogHelper.Info("Service Start");
         }
 
         public void Pause()
         {
             _globalScheduler.PauseAll();
-            LogHelper.Info("服务暂停");
+            LogHelper.Info("Service Pause");
         }
 
         public void Continue()
         {
             _globalScheduler.ResumeAll();
-            LogHelper.Info("服务继续");
+            LogHelper.Info("Service Continue");
         }
 
         public void Stop()
         {
             _globalScheduler.Shutdown();
-            LogHelper.Info("服务结束");
+            LogHelper.Info("Service Stop");
         }
     }
 }
