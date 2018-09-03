@@ -9,6 +9,7 @@ namespace SmallReport.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            MessageHelper.SendExpMsg();
             return View();
         }
 

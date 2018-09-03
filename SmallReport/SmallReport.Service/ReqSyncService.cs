@@ -32,7 +32,7 @@ namespace SmallReport.Service
         public static bool CheckMatchIdNull()
         {
             const string sql = @"SELECT * FROM LksForICAS.dbo.StuReq WHERE 1=1 
-                        AND MathingId IS NULL
+                        --AND MathingId IS NULL
                         ORDER BY BeginTime DESC";
             using (var reader = SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sql, new List<SqlParameter>()))
             {
