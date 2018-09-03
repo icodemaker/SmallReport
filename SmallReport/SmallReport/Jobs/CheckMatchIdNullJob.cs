@@ -2,8 +2,8 @@
 using SmallReport.Assist;
 using SmallReport.Assist.WeChat;
 using SmallReport.Service;
-using SmallReport.Tool;
 using System;
+using SmallReport.Assist.Quartz;
 
 namespace SmallReport.Jobs
 {
@@ -25,13 +25,13 @@ namespace SmallReport.Jobs
             });
         }
 
-        public bool CheckMatchId()
+        private static bool CheckMatchId()
         {
             var flag = true;
             try
             {
-                var HasValue = new ReqSyncService().CheckMatchIdNull();
-                if (HasValue)
+                var hasValue = ReqSyncService.CheckMatchIdNull();
+                if (hasValue)
                 {
                     LogHelper.Error("检查空指针问题发现异常数据");
                     MessageHelper.SendExpMsg();

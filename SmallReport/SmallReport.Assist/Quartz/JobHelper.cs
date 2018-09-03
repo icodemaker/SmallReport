@@ -1,11 +1,10 @@
 ﻿using Quartz;
-using SmallReport.Assist;
 using System;
 using System.Collections.Concurrent;
 
-namespace SmallReport.Tool
+namespace SmallReport.Assist.Quartz
 {
-    public class JobHelper
+    public static class JobHelper
     {
         #region Invoke
 
@@ -28,20 +27,18 @@ namespace SmallReport.Tool
                 flag = InvokeFlagList.TryAdd(jobKey, true);
             }
 
-            if (flag)
+            if (!flag) return;
+            LogHelper.Debug($"WinService JobKey:{jobKey} Execute Begin Time:{DateTime.Now}");
+            try
             {
-                LogHelper.Debug($"WinService JobKey:{jobKey} Execute Begin Time:{DateTime.Now}");
-                try
-                {
-                    action();
-                }
-                catch (Exception ex)
-                {
-                    LogHelper.Error($"WinService JobKey:{jobKey} Exception:", ex);
-                }
-                LogHelper.Debug($"WinService JobKey:{jobKey} Execute End Time:{DateTime.Now}");
-                InvokeFlagList[jobKey] = false;
+                action();
             }
+            catch (Exception ex)
+            {
+                LogHelper.Error($"WinService JobKey:{jobKey} Exception:", ex);
+            }
+            LogHelper.Debug($"WinService JobKey:{jobKey} Execute End Time:{DateTime.Now}");
+            InvokeFlagList[jobKey] = false;
         }
 
         #endregion

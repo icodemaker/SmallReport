@@ -3,9 +3,9 @@ using Topshelf;
 
 namespace SmallReport
 {
-    static class Program
+    internal static class Program
     {
-        static void Main()
+        private static void Main()
         {
             HostFactory.Run(srv =>
             {

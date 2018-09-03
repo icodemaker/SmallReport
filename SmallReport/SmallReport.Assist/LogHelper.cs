@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SmallReport.Assist
 {
-    public class LogHelper
+    public static class LogHelper
     {
         #region Debug
 
@@ -18,7 +18,7 @@ namespace SmallReport.Assist
             Debug(message, exception, LogType);
         }
 
-        public static void Debug(string message, Exception exception, LoggerType loggerType)
+        private static void Debug(string message, Exception exception, LoggerType loggerType)
         {
             var logger = GetLogger(loggerType);
 
@@ -44,7 +44,7 @@ namespace SmallReport.Assist
             Info(message, exception, LogType);
         }
 
-        public static void Info(string message, Exception exception, LoggerType loggerType)
+        private static void Info(string message, Exception exception, LoggerType loggerType)
         {
             var logger = GetLogger(loggerType);
 
@@ -65,7 +65,7 @@ namespace SmallReport.Assist
             Warn(string.Empty, exception);
         }
 
-        public static void Warn(string message, Exception exception = null)
+        private static void Warn(string message, Exception exception = null)
         {
             Warn(message, exception, LogType);
         }
@@ -75,7 +75,7 @@ namespace SmallReport.Assist
             throw new NotImplementedException();
         }
 
-        public static void Warn(string message, Exception exception, LoggerType loggerType)
+        private static void Warn(string message, Exception exception, LoggerType loggerType)
         {
             var logger = GetLogger(loggerType);
 
@@ -101,7 +101,7 @@ namespace SmallReport.Assist
             Error(message, exception, LogType);
         }
 
-        public static void Error(string message, Exception exception, LoggerType loggerType)
+        private static void Error(string message, Exception exception, LoggerType loggerType)
         {
             var logger = GetLogger(loggerType);
 
@@ -122,12 +122,12 @@ namespace SmallReport.Assist
             Fata(string.Empty, exception);
         }
 
-        public static void Fata(string message, Exception exception = null)
+        private static void Fata(string message, Exception exception = null)
         {
             Fata(message, exception, LogType);
         }
 
-        public static void Fata(string message, Exception exception, LoggerType loggerType)
+        private static void Fata(string message, Exception exception, LoggerType loggerType)
         {
             var logger = GetLogger(loggerType);
 
@@ -144,17 +144,7 @@ namespace SmallReport.Assist
         #region
         private static ILog GetLogger(LoggerType loggerType)
         {
-            ILog logger;
-
-            switch (loggerType)
-            {
-                case LoggerType.SqlServer:
-                    logger = LogManager.GetLogger("SQLServerLogger");
-                    break;
-                default:
-                    logger = LogManager.GetLogger("FileLogger");
-                    break;
-            }
+            var logger = LogManager.GetLogger(loggerType == LoggerType.SqlServer ? "SQLServerLogger" : "FileLogger");
 
             return logger;
         }
@@ -173,7 +163,7 @@ namespace SmallReport.Assist
 
         private static LoggerType LogType => LoggerType.File;
 
-        public enum LoggerType
+        private enum LoggerType
         {
             File,
             SqlServer

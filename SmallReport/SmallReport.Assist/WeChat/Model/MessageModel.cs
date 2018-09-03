@@ -1,6 +1,6 @@
-﻿namespace SmallReport.Assist.WeChat
+﻿namespace SmallReport.Assist.WeChat.Model
 {
-    public class MessageModel
+    public abstract class MessageModel
     {
         #region Public
 

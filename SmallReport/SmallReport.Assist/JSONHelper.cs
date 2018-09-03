@@ -1,16 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmallReport.Assist
 {
 
-    public static class JSONHelper
+    public static class JsonHelper
     {
         #region 编码
 
@@ -22,10 +18,10 @@ namespace SmallReport.Assist
 
         #region 编码
 
-        public static string Encode<T>(T t, Formatting format)
+        private static string Encode<T>(T t, Formatting format)
         {
-            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
-            BigintConverter bigintConverter = new BigintConverter();         
+            var timeConverter = new IsoDateTimeConverter();
+            var bigintConverter = new BigintConverter();         
             timeConverter.DateTimeFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss";
 
             return JsonConvert.SerializeObject(t, format, timeConverter, bigintConverter);
@@ -36,7 +32,6 @@ namespace SmallReport.Assist
 
         public static T Decode<T>(string json)
         {
-            BigintConverter bigintConverter = new BigintConverter();
             return (T)JsonConvert.DeserializeObject(json, typeof(T));
         }
         #endregion
@@ -48,8 +43,8 @@ namespace SmallReport.Assist
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(System.Int64)
-                || objectType == typeof(System.UInt64);
+            return objectType == typeof(long)
+                || objectType == typeof(ulong);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -58,19 +53,16 @@ namespace SmallReport.Assist
             {
                 return 0;
             }
-            else
+            var convertible = reader.Value as IConvertible;
+            if (objectType == typeof(long))
             {
-                IConvertible convertible = reader.Value as IConvertible;
-                if (objectType == typeof(System.Int64))
-                {
-                    return convertible.ToInt64(CultureInfo.InvariantCulture);
-                }
-                else if (objectType == typeof(System.UInt64))
-                {
-                    return convertible.ToUInt64(CultureInfo.InvariantCulture);
-                }
-                return 0;
+                if (convertible != null) return convertible.ToInt64(CultureInfo.InvariantCulture);
             }
+            else if (objectType == typeof(ulong))
+            {
+                if (convertible != null) return convertible.ToUInt64(CultureInfo.InvariantCulture);
+            }
+            return 0;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

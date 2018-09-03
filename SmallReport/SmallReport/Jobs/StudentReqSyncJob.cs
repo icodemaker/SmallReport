@@ -2,8 +2,8 @@
 using SmallReport.Assist;
 using SmallReport.Assist.WeChat;
 using SmallReport.Service;
-using SmallReport.Tool;
 using System;
+using SmallReport.Assist.Quartz;
 
 namespace SmallReport.Jobs
 {
@@ -20,30 +20,24 @@ namespace SmallReport.Jobs
                 using (var lockHelper = new LockHelper(LockObj))
                 {
                     if (lockHelper.IsTimeout) return;
-                    var result = ReqSync();
+                    ReqSync();
                 }
             });
         }
 
-        public bool ReqSync()
+        private static void ReqSync()
         {
-            var flag = true;
             try
             {
-                var HasValue = new ReqSyncService().CheckReqSync();
-                if (HasValue)
-                {
-                    LogHelper.Error("检查需求同步问题发现异常数据");
-                    MessageHelper.SendExpMsg();
-                }
+                var hasValue = ReqSyncService.CheckReqSync();
+                if (!hasValue) return;
+                LogHelper.Error("检查需求同步问题发现异常数据");
+                MessageHelper.SendExpMsg();
             }
             catch (Exception e)
             {
                 LogHelper.Error("Task Exception", e);
-                flag = false;
             }
-
-            return flag;
         }
     }
 }

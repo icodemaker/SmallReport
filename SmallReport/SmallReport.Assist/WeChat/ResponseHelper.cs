@@ -1,69 +1,70 @@
 ﻿using System.Web;
+using SmallReport.Assist.WeChat.Model;
 
 namespace SmallReport.Assist.WeChat
 {
-    public class ResponseHelper
+    public static class ResponseHelper
     {
 
         public static void ResponseMsg(MessageModel msg)
         {
 
-            if (msg.MsgType == MessgeTypeModel.text)
+            if (msg.MsgType == MessgeTypeModel.Text)
             {
-                string result = MessageHelper.AccessService(msg.FromUserName, msg.ToUserName);
+                var result = MessageHelper.AccessService(msg.FromUserName, msg.ToUserName);
                 HttpContext.Current.Response.Write(result);
             }
-            else if (msg.MsgType == MessgeTypeModel.location)
+            else if (msg.MsgType == MessgeTypeModel.Location)
             {
-                string result = MessageHelper.ReturnTextMsg(msg.FromUserName, msg.ToUserName, "你的坐标是:" + msg.Location_X + " , " + msg.Location_Y + "   位置是：" + msg.Label);
+                var result = MessageHelper.ReturnTextMsg(msg.FromUserName, msg.ToUserName, "你的坐标是:" + msg.Location_X + " , " + msg.Location_Y + "   位置是：" + msg.Label);
                 HttpContext.Current.Response.Write(result);
             }
-            else if (msg.MsgType == MessgeTypeModel.voice)
+            else if (msg.MsgType == MessgeTypeModel.Voice)
             {
-                string result = MessageHelper.ReturnVoice(msg.FromUserName, msg.ToUserName, msg.MediaId);
+                var result = MessageHelper.ReturnVoice(msg.FromUserName, msg.ToUserName, msg.MediaId);
                 HttpContext.Current.Response.Write(result);
             }
-            else if (msg.MsgType == MessgeTypeModel.image)
+            else if (msg.MsgType == MessgeTypeModel.Image)
             {
-                string result = MessageHelper.ReturnImageMsg(msg.FromUserName, msg.ToUserName, msg.MediaId);
+                var result = MessageHelper.ReturnImageMsg(msg.FromUserName, msg.ToUserName, msg.MediaId);
                 HttpContext.Current.Response.Write(result);
             }
-            else if (msg.MsgType == MessgeTypeModel.video)
+            else if (msg.MsgType == MessgeTypeModel.Video)
             {
-                string result = MessageHelper.ReturnVideoMsg(msg.FromUserName, msg.ToUserName, msg.ThumbMediaId, "Video", "Video Description");
+                var result = MessageHelper.ReturnVideoMsg(msg.FromUserName, msg.ToUserName, msg.ThumbMediaId, "Video", "Video Description");
                 HttpContext.Current.Response.Write(result);
             }
-            else if (msg.MsgType == MessgeTypeModel.shortvideo)
+            else if (msg.MsgType == MessgeTypeModel.Shortvideo)
             {
-                string result = MessageHelper.ReturnVideoMsg(msg.FromUserName, msg.ToUserName, msg.ThumbMediaId, "Short Video", "Short Video Description");
+                var result = MessageHelper.ReturnVideoMsg(msg.FromUserName, msg.ToUserName, msg.ThumbMediaId, "Short Video", "Short Video Description");
                 HttpContext.Current.Response.Write(result);
             }
-            else if (msg.MsgType == MessgeTypeModel.link)
+            else if (msg.MsgType == MessgeTypeModel.Link)
             {
 
             }
-            else if (msg.MsgType == MessgeTypeModel.events)
+            else if (msg.MsgType == MessgeTypeModel.Events)
             {
                 switch (msg.Event)
                 {
                     #region Follow
-                    case MessgeTypeModel.subscribe:
+                    case MessgeTypeModel.Subscribe:
                         break;
 
-                    case MessgeTypeModel.scan:
+                    case MessgeTypeModel.Scan:
                         
                         break;
                     #endregion
 
                     #region UnFollow
 
-                    case MessgeTypeModel.unsubscribe:
+                    case MessgeTypeModel.Unsubscribe:
 
                         break;
                     #endregion
 
                     #region Lacal
-                    case MessgeTypeModel.locationEvnet:
+                    case MessgeTypeModel.LocationEvnet:
                         string location = MessageHelper.ReturnTextMsg(msg.FromUserName, msg.ToUserName, "Lat：" + msg.Latitude + " Long：" + msg.Longitude + " Pre：" + msg.Precision);
                         HttpContext.Current.Response.Write(location);
                         break;

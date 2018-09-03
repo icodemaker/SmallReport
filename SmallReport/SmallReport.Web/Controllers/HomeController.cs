@@ -14,13 +14,10 @@ namespace SmallReport.Web.Controllers
 
         public void Msg()
         {
-            
-            if (WeChatHelper.Valid())
-            {
-                var wmsg = WeChatHelper.GetXmlMessage();
-                LogHelper.Debug($"msg come in, msgId:{wmsg.MediaId}");
-                ResponseHelper.ResponseMsg(wmsg);
-            }
+            if (!WeChatHelper.Valid()) return;
+            var wmsg = WeChatHelper.GetXmlMessage();
+            LogHelper.Debug($"msg come in, msgId:{wmsg.MediaId}");
+            ResponseHelper.ResponseMsg(wmsg);
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿namespace SmallReport.Assist.WeChat
+﻿namespace SmallReport.Assist.WeChat.Model
 {
-    public class JsTicketModel
+    public abstract class JsTicketModel
     {
-        public string ticket { get; set; }
-        public int expires_in { get; set; }
+        public string Ticket { get; set; }
+        public int ExpiresIn { get; set; }
     }
 }
