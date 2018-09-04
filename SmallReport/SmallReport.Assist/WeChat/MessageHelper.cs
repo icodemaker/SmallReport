@@ -105,9 +105,12 @@ namespace SmallReport.Assist.WeChat
         #region Template Msg
         public static void SendExpMsg()
         {
+            var openId_leh = "oc0Qp0m9wYecC0cBihpsDdsS-4FU";
+            var openId_dg = "oc0Qp0pm6a4o9fuFsMZ6ApeEWloU";
+
             var text = $@"
 				{{ 
-				    ""touser"": ""{"oc0Qp0m9wYecC0cBihpsDdsS-4FU"}"",
+				    ""touser"": ""{openId_dg}"",
 				    ""template_id"": ""{"u6slk3ft-7x4jRR8lgy-ZlvNtGbMzpP3zeOyX4dGN_0"}"",
                     ""topcolor"":""#FF0000"",
                     ""url"":"""",

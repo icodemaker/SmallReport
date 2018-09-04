@@ -1,6 +1,6 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.Text;
+using Common.Logging;
 
 namespace SmallReport.Assist
 {

@@ -119,14 +119,14 @@ namespace SmallReport.Assist.WeChat
             var selectSingleNode = xml.SelectSingleNode("xml");
             var singleNode = selectSingleNode?.SelectSingleNode("AccessToken");
             if (singleNode != null)
-                singleNode.InnerText = model.AccessToken;
-            var accessToken = DateTime.Now.AddSeconds(model.ExpiresIn);
+                singleNode.InnerText = model.access_token;
+            var accessToken = DateTime.Now.AddSeconds(model.expires_in);
             var xmlNode = xml.SelectSingleNode("xml");
             var node = xmlNode?.SelectSingleNode("AccessExpires");
             if (node != null)
                 node.InnerText = accessToken.ToString(CultureInfo.InvariantCulture);
             xml.Save(filePath);
-            token = model.AccessToken;
+            token = model.access_token;
             return token;
         }
 
@@ -136,8 +136,8 @@ namespace SmallReport.Assist.WeChat
             var atoken = new AccessTokenModel();
             var content = HttpGet(asseccUrl);
             var token = ParseFromJson<AccessTokenModel>(content);
-            atoken.AccessToken = token.AccessToken;
-            atoken.ExpiresIn = token.ExpiresIn;
+            atoken.access_token = token.access_token;
+            atoken.expires_in = token.expires_in;
             return atoken;
         }
         #endregion
@@ -219,7 +219,8 @@ namespace SmallReport.Assist.WeChat
 
         private static T ParseFromJson<T>(string szJson)
         {
-            return JsonHelper.Decode<T>(szJson);
+            var output = JsonHelper.Decode<T>(szJson);
+            return output;
         }
 
         public static void SendTemplateMsg(string postContent)
@@ -254,7 +255,7 @@ namespace SmallReport.Assist.WeChat
                 var response = request.GetResponse();
                 {
                     var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-                    reader.ReadToEnd();
+                    var responseStr = reader.ReadToEnd();
                     reader.Close();
                 }
             }

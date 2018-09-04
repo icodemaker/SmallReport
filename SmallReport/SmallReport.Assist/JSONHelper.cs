@@ -32,7 +32,8 @@ namespace SmallReport.Assist
 
         public static T Decode<T>(string json)
         {
-            return (T)JsonConvert.DeserializeObject(json, typeof(T));
+            var output = (T)JsonConvert.DeserializeObject(json, typeof(T));
+            return output;
         }
         #endregion
     }
