@@ -3,9 +3,9 @@
 
     public class AccessTokenModel
     {
-        public string AccessToken { get; set; }
+        public string access_token { get; set; }
 
-        public int ExpiresIn { get; set; }
+        public int expires_in { get; set; }
 
         public string RefreshToken { get; set; }
 
