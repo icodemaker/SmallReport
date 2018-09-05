@@ -1,6 +1,6 @@
 ﻿using Quartz;
-using SmallReport.Assist;
 using SmallReport.Assist.Quartz;
+using SmallReport.Assist.WeChat;
 using SmallReport.Service;
 using System;
 
@@ -29,10 +29,11 @@ namespace SmallReport.Jobs
             var flag = true;
             try
             {
-                var hasValue = QueryExceptionService.CheckMatchIdNull();
-                if (hasValue)
+                var result = QueryExceptionService.QueryException();
+                if (!string.IsNullOrWhiteSpace(result))
                 {
-                    LogHelper.Error("返现异常数据，开始调用消息推送");
+                    LogHelper.Error($"返现异常数据:{result}");
+                    MessageHelper.SendExpMsg(result);
                 }
             }
             catch (Exception e)

@@ -103,7 +103,7 @@ namespace SmallReport.Assist.WeChat
         }
 
         #region Template Msg
-        public static void SendExpMsg()
+        public static void SendExpMsg(string msg)
         {
             var text = $@"
 				{{ 
@@ -113,10 +113,10 @@ namespace SmallReport.Assist.WeChat
                     ""url"":"""",
 				    ""data"": {{
 						""first"":{{""value"":""{"数据发现异常"}"",""color"":""#173177""}},
-						""keyword1"":{{""value"":""{"学员需求未同步至ICAS库"}"",""color"":""#173177""}},
+						""keyword1"":{{""value"":""{"出课服务稳定期间暴露异常"}"",""color"":""#173177""}},
 						""keyword2"":{{""value"":""{DateTime.Now}"",""color"":""#173177""}},
                         ""keyword3"":{{""value"":""{"严重错误"}"",""color"":""#173177""}},
-                        ""remark"":{{""value"":""{"小程序发现异常数据，请速度修复并排查日志"}"",""color"":""#173177""}}
+                        ""remark"":{{""value"":""{msg}"",""color"":""#173177""}}
 					}}
 				}}";
             WeChatHelper.SendTemplateMsg(text);
