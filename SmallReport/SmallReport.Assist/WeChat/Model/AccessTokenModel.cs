@@ -3,14 +3,14 @@
 
     public class AccessTokenModel
     {
-        public string AccessToken { get; set; }
+        public string access_token { get; set; }
 
-        public int ExpiresIn { get; set; }
+        public int expires_in { get; set; }
 
-        public string RefreshToken { get; set; }
+        public string refresh_token { get; set; }
 
-        public string Openid { get; set; }
+        public string openid { get; set; }
 
-        public string Scope { get; set; }
+        public string scope { get; set; }
     }
 }

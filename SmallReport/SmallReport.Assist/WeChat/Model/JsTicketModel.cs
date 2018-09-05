@@ -2,7 +2,7 @@
 {
     public abstract class JsTicketModel
     {
-        public string Ticket { get; set; }
-        public int ExpiresIn { get; set; }
+        public string ticket { get; set; }
+        public int expires_in { get; set; }
     }
 }

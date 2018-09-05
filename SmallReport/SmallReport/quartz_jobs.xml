@@ -17,7 +17,7 @@
         <group>SmallReport</group>
         <job-name>StudentReqSyncJob</job-name>
         <job-group>SmallReport</job-group>
-        <cron-expression>0/10 * * * * ?</cron-expression>
+        <cron-expression>0 0/10 * * * ?</cron-expression>
         <!-- 10m -->
       </cron>
     </trigger>
@@ -34,7 +34,7 @@
         <group>SmallReport</group>
         <job-name>CheckMatchIdNullJob</job-name>
         <job-group>SmallReport</job-group>
-        <cron-expression>0/10 * * * * ?</cron-expression>
+        <cron-expression>0 0/10 * * * ?</cron-expression>
         <!-- 10m -->
       </cron>
     </trigger>

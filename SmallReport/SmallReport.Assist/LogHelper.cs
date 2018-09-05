@@ -122,7 +122,7 @@ namespace SmallReport.Assist
             Fata(string.Empty, exception);
         }
 
-        private static void Fata(string message, Exception exception = null)
+        public static void Fata(string message, Exception exception = null)
         {
             Fata(message, exception, LogType);
         }

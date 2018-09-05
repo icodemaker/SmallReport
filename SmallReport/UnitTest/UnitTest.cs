@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SmallReport.Assist;
 using SmallReport.Assist.WeChat;
 using SmallReport.Service;
 
@@ -9,9 +10,9 @@ namespace UnitTest
     public class UnitTest
     {
         [TestMethod]
-        public void LogTest()
+        public void SimpleTest()
         {
-
+            var ip = IpAddressHelper.GetExtenalIpAddress();
         }
     }
 }

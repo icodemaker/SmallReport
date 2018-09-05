@@ -29,6 +29,13 @@ namespace SmallReport.Jobs
         {
             try
             {
+                //ip for wechat
+                var currIp = "223.74.148.224";
+                var ip = IpAddressHelper.GetExtenalIpAddress();
+                if (currIp != ip)
+                {
+                    LogHelper.Fata("IP地址发生变更");
+                }
                 var hasValue = ReqSyncService.CheckReqSync();
                 if (!hasValue) return;
                 LogHelper.Error("检查需求同步问题发现异常数据");

@@ -119,14 +119,14 @@ namespace SmallReport.Assist.WeChat
             var selectSingleNode = xml.SelectSingleNode("xml");
             var singleNode = selectSingleNode?.SelectSingleNode("AccessToken");
             if (singleNode != null)
-                singleNode.InnerText = model.AccessToken;
-            var accessToken = DateTime.Now.AddSeconds(model.ExpiresIn);
+                singleNode.InnerText = model.access_token;
+            var accessToken = DateTime.Now.AddSeconds(model.expires_in);
             var xmlNode = xml.SelectSingleNode("xml");
             var node = xmlNode?.SelectSingleNode("AccessExpires");
             if (node != null)
                 node.InnerText = accessToken.ToString(CultureInfo.InvariantCulture);
             xml.Save(filePath);
-            token = model.AccessToken;
+            token = model.access_token;
             return token;
         }
 
@@ -136,8 +136,8 @@ namespace SmallReport.Assist.WeChat
             var atoken = new AccessTokenModel();
             var content = HttpGet(asseccUrl);
             var token = ParseFromJson<AccessTokenModel>(content);
-            atoken.AccessToken = token.AccessToken;
-            atoken.ExpiresIn = token.ExpiresIn;
+            atoken.access_token = token.access_token;
+            atoken.expires_in = token.expires_in;
             return atoken;
         }
         #endregion
@@ -159,14 +159,14 @@ namespace SmallReport.Assist.WeChat
             var selectSingleNode = xml.SelectSingleNode("xml");
             var singleNode = selectSingleNode?.SelectSingleNode("AccessToken");
             if (singleNode != null)
-                singleNode.InnerText = tkm.Ticket;
-            var accessToken = DateTime.Now.AddSeconds(tkm.ExpiresIn);
+                singleNode.InnerText = tkm.ticket;
+            var accessToken = DateTime.Now.AddSeconds(tkm.expires_in);
             var xmlNode = xml.SelectSingleNode("xml");
             var node = xmlNode?.SelectSingleNode("AccessExpires");
             if (node != null)
                 node.InnerText = accessToken.ToString(CultureInfo.InvariantCulture);
             xml.Save(filePath);
-            token = tkm.Ticket;
+            token = tkm.ticket;
             return token;
         }
 
@@ -192,11 +192,11 @@ namespace SmallReport.Assist.WeChat
             var timestamp = ticks.ToString();
             var sign = "jsapi_ticket=" + jsapiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
             var signature = CommonHelper.Md5Hash(sign);
-            map.Url = url;
-            map.JsapiTicket = jsapiTicket;
-            map.NonceStr = nonceStr;
-            map.Timestamp = timestamp;
-            map.Signature = signature;
+            map.url = url;
+            map.jsapi_ticket = jsapiTicket;
+            map.nonceStr = nonceStr;
+            map.timestamp = timestamp;
+            map.signature = signature;
             return map;
         }
         #endregion

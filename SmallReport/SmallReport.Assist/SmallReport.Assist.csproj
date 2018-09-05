@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IpAddressHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quartz\JobHelper.cs" />
     <Compile Include="LockHelper.cs" />

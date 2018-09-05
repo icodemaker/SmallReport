@@ -2,10 +2,10 @@
 {
     public class SignatureModel
     {
-        public string Url { get; set; }
-        public string JsapiTicket { get; set; }
-        public string NonceStr { get; set; }
-        public string Timestamp { get; set; }
-        public string Signature { get; set; }
+        public string url { get; set; }
+        public string jsapi_ticket { get; set; }
+        public string nonceStr { get; set; }
+        public string timestamp { get; set; }
+        public string signature { get; set; }
     }
 }
