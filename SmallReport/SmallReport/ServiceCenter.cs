@@ -1,6 +1,6 @@
 ﻿using Quartz;
 using Quartz.Impl;
-using SmallReport.Assist;
+using SmallReport.Assist.Quartz;
 
 namespace SmallReport
 {

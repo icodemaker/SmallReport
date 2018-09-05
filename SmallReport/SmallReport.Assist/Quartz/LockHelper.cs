@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace SmallReport.Assist
+namespace SmallReport.Assist.Quartz
 {
     public class LockHelper: IDisposable
     {

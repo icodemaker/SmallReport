@@ -12,7 +12,7 @@ namespace UnitTest
         [TestMethod]
         public void SimpleTest()
         {
-            var ip = IpAddressHelper.GetExtenalIpAddress();
+            //var ip = IpAddressHelper.GetExtenalIpAddress();
         }
     }
 }

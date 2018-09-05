@@ -1,4 +1,5 @@
-﻿using SmallReport.Assist.WeChat.Model;
+﻿using SmallReport.Assist.Quartz;
+using SmallReport.Assist.WeChat.Model;
 using System;
 using System.Configuration;
 using System.Globalization;

@@ -1,4 +1,4 @@
-﻿using SmallReport.Assist;
+﻿using SmallReport.Assist.Quartz;
 using Topshelf;
 
 namespace SmallReport

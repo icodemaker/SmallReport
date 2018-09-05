@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace SmallReport.Assist
+namespace SmallReport.Assist.Quartz
 {
     public static class LogHelper
     {

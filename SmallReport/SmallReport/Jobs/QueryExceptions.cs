@@ -33,7 +33,6 @@ namespace SmallReport.Jobs
                 if (hasValue)
                 {
                     LogHelper.Error("返现异常数据，开始调用消息推送");
-
                 }
             }
             catch (Exception e)

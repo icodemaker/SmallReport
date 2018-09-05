@@ -10,8 +10,9 @@ namespace SmallReport.Service
     {
         private static string ConnectionString => ConfigurationManager.ConnectionStrings["Lks"].ConnectionString;
 
-        public static bool CheckReqSync()
+        public static bool QueryException()
         {
+            //StuReq Async
             const string sql = @"SELECT a.* FROM [Lks].[stu].[StudentRequirement] a 
                         LEFT JOIN [LksForICAS].[dbo].[StuReq] b  
                         ON  a.StudentId=b.StudentId AND a.BeginTime=b.BeginTime

@@ -1,4 +1,5 @@
 ﻿using SmallReport.Assist;
+using SmallReport.Assist.Quartz;
 using SmallReport.Assist.WeChat;
 using System.Web.Mvc;
 
