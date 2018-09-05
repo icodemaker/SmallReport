@@ -5,34 +5,17 @@
   </processing-directives>
   <schedule>
     <job>
-      <name>StudentReqSyncJob</name>
+      <name>QueryExceptions</name>
       <group>SmallReport</group>
-      <job-type>SmallReport.Jobs.StudentReqSyncJob,SmallReport</job-type>
+      <job-type>SmallReport.Jobs.QueryExceptions,SmallReport</job-type>
       <durable>true</durable>
       <recover>false</recover>
     </job>
     <trigger>
       <cron>
-        <name>StudentReqSyncJob.Trigger</name>
+        <name>QueryExceptions.Trigger</name>
         <group>SmallReport</group>
-        <job-name>StudentReqSyncJob</job-name>
-        <job-group>SmallReport</job-group>
-        <cron-expression>0 0/10 * * * ?</cron-expression>
-        <!-- 10m -->
-      </cron>
-    </trigger>
-    <job>
-      <name>CheckMatchIdNullJob</name>
-      <group>SmallReport</group>
-      <job-type>SmallReport.Jobs.CheckMatchIdNullJob,SmallReport</job-type>
-      <durable>true</durable>
-      <recover>false</recover>
-    </job>
-    <trigger>
-      <cron>
-        <name>CheckMatchIdNullJob.Trigger</name>
-        <group>SmallReport</group>
-        <job-name>CheckMatchIdNullJob</job-name>
+        <job-name>QueryExceptions</job-name>
         <job-group>SmallReport</job-group>
         <cron-expression>0 0/10 * * * ?</cron-expression>
         <!-- 10m -->

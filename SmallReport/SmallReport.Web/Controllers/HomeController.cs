@@ -9,7 +9,6 @@ namespace SmallReport.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            MessageHelper.SendExpMsg();
             return View();
         }
 
@@ -19,6 +18,12 @@ namespace SmallReport.Web.Controllers
             var wmsg = WeChatHelper.GetXmlMessage();
             LogHelper.Debug($"msg come in, msgId:{wmsg.MediaId}");
             ResponseHelper.ResponseMsg(wmsg);
+        }
+
+        public ActionResult SendTemplateMsg()
+        {
+            MessageHelper.SendExpMsg();
+            return Json(null);
         }
     }
 }
