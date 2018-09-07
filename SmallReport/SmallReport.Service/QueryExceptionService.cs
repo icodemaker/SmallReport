@@ -27,7 +27,7 @@ namespace SmallReport.Service
                 {
                     if (reader.Read())
                     {
-                        result.Add($"发现未同步需求{reader.FieldCount}条");
+                        result.Add($"发现未同步需求");
                     }
                 }
                 //Null
@@ -38,7 +38,35 @@ namespace SmallReport.Service
                 {
                     if (reader.Read())
                     {
-                        result.Add($"发现匹配为空数据{reader.FieldCount}条");
+                        result.Add($"发现匹配为空数据");
+                    }
+                }
+                //Re Pub Yet
+                const string rePub = @"SELECT a.BeginTime,tr.TeacherId, COUNT(1) AS Num
+                        FROM [Lks].[study].[ArrangeCourse] a 
+                        INNER JOIN Lks.study.TeachRecord tr ON  a.Id = tr.ArrangeCourseId
+                        WHERE a.BeginTime >GETDATE() 
+                        AND a.Status=101 
+                        AND a.CancelStatusType NOT IN (104,105,106) 
+                        AND tr.Status=101
+                        GROUP BY a.BeginTime,tr.TeacherId HAVING COUNT(*) > 1";
+                using (var reader = SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, rePub, new List<SqlParameter>()))
+                {
+                    if (reader.Read())
+                    {
+                        result.Add($"发现已经重复发布数据");
+                    }
+                }
+                const string reStuReq = @"SELECT [StudentId] ,[BeginTime], COUNT(1) as Num
+                        FROM [LksForICAS].[dbo].[StuReq]
+                        WHERE BeginTime > GETDATE() 
+                        group by StudentId,[BeginTime]
+                        having COUNT(1) >1";
+                using (var reader = SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, reStuReq, new List<SqlParameter>()))
+                {
+                    if (reader.Read())
+                    {
+                        result.Add($"发现学员重复需求数据");
                     }
                 }
                 return string.Join(",", result);

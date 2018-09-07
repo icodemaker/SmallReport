@@ -21,10 +21,10 @@ namespace SmallReport.Web.Controllers
             ResponseHelper.ResponseMsg(wmsg);
         }
 
-        public ActionResult SendTemplateMsg()
+        public ActionResult SendTemplateMsg(string msg)
         {
-            MessageHelper.SendExpMsg();
-            return Json(null);
+            MessageHelper.SendExpMsg(msg);
+            return Json(new { code = 0, msg = "发送成功！" }, JsonRequestBehavior.AllowGet);
         }
     }
 }
