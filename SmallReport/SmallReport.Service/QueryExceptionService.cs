@@ -57,6 +57,8 @@ namespace SmallReport.Service
                         result.Add($"发现已经重复发布数据");
                     }
                 }
+
+                //Stu Req Re
                 const string reStuReq = @"SELECT [StudentId] ,[BeginTime], COUNT(1) as Num
                         FROM [LksForICAS].[dbo].[StuReq]
                         WHERE BeginTime > GETDATE() 
@@ -67,6 +69,22 @@ namespace SmallReport.Service
                     if (reader.Read())
                     {
                         result.Add($"发现学员重复需求数据");
+                    }
+                }
+
+                //Re Pub Will
+                const string rePubWill = @"SELECT A.BeginTime,C.TeacherId,C.Id  AS ReqId,COUNT(1) AS Num FROM LksForICAS.dbo.Matching A
+                        INNER JOIN LksForICAS.dbo.TeaReqMathing B ON a.Id = B.MathingId
+                        INNER JOIN LksForICAS.dbo.TeaReq C ON B.TeaReqId = C.Id
+                        WHERE 1 = 1
+                        AND A.Status != 103
+                        GROUP BY A.BeginTime,C.TeacherId,C.Id
+                        HAVING COUNT(1) > 1";
+                using (var reader = SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, rePubWill, new List<SqlParameter>()))
+                {
+                    if (reader.Read())
+                    {
+                        result.Add($"发现即将重复出课的嫌疑数据");
                     }
                 }
                 return string.Join(",", result);

@@ -2,6 +2,7 @@
 using SmallReport.Assist.Quartz;
 using SmallReport.Assist.WeChat;
 using System.Web.Mvc;
+using SmallReport.Service;
 
 namespace SmallReport.Web.Controllers
 {
@@ -21,10 +22,15 @@ namespace SmallReport.Web.Controllers
             ResponseHelper.ResponseMsg(wmsg);
         }
 
-        public ActionResult SendTemplateMsg(string msg)
+        public ActionResult SendTemplateMsg()
         {
-            MessageHelper.SendExpMsg(msg);
-            return Json(new { code = 0, msg = "发送成功！" }, JsonRequestBehavior.AllowGet);
+            var result = QueryExceptionService.QueryException();
+            if (string.IsNullOrWhiteSpace(result))
+            {
+                result = "没有异数据";
+            }
+            MessageHelper.SendExpMsg(result);
+            return Json(new { code = 0, msg = result }, JsonRequestBehavior.AllowGet);
         }
     }
 }
