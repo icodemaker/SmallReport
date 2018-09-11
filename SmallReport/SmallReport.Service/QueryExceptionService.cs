@@ -87,6 +87,16 @@ namespace SmallReport.Service
                         result.Add($"发现即将重复出课的嫌疑数据");
                     }
                 }
+
+                //New Stu Not Async
+                const string newAsync = @"SELECT *                    FROM [Lks].[stu].[StudentRequirement]                    WHERE CancelStatusType=101 AND [Status]=101 AND RequirementStatusType=102                    AND BeginTime>=GETDATE()                    AND DATEDIFF(HOUR,GETDATE(),BeginTime) <12";
+                using (var reader = SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, newAsync, new List<SqlParameter>()))
+                {
+                    if (reader.Read())
+                    {
+                        result.Add($"发现未同步需求");
+                    }
+                }
                 return string.Join(",", result);
             }
             catch (System.Exception)
