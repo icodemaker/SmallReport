@@ -27,7 +27,7 @@ namespace SmallReport.Service
                 {
                     if (reader.Read())
                     {
-                        result.Add($"发现未同步需求");
+                        result.Add($"发现学员未同步需求第一类");
                     }
                 }
                 //Null
@@ -89,12 +89,32 @@ namespace SmallReport.Service
                 }
 
                 //New Stu Not Async
-                const string newAsync = @"SELECT *                    FROM [Lks].[stu].[StudentRequirement]                    WHERE CancelStatusType=101 AND [Status]=101 AND RequirementStatusType=102                    AND BeginTime>=GETDATE()                    AND DATEDIFF(HOUR,GETDATE(),BeginTime) <12";
+                const string newAsync = @"SELECT *
+                    FROM [Lks].[stu].[StudentRequirement]
+                    WHERE CancelStatusType=101 AND [Status]=101 AND RequirementStatusType=102
+                    AND BeginTime>=GETDATE()
+                    AND DATEDIFF(HOUR,GETDATE(),BeginTime) <12";
                 using (var reader = SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, newAsync, new List<SqlParameter>()))
                 {
                     if (reader.Read())
                     {
-                        result.Add($"发现未同步需求");
+                        result.Add($"发现学员未同步需求第二类");
+                    }
+                }
+
+                //Tea Not Async
+                const string teaAsync = @"SELECT a.* FROM [Lks].tea.TeacherRequirement a 
+                    LEFT JOIN [LksForICAS].[dbo].TeaReq b  
+                    ON  a.TeacherId=b.TeacherId AND a.BeginTime=b.BeginTime
+                    WHERE a.CancelStatusType=101 AND a.RequirementStatusType=102 
+                    AND a.BeginTime > GETDATE() 
+                    AND b.Id IS NULL 
+                    ORDER BY a.BeginTime DESC";
+                using (var reader = SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, teaAsync, new List<SqlParameter>()))
+                {
+                    if (reader.Read())
+                    {
+                        result.Add($"发现教师未同步需求");
                     }
                 }
                 return string.Join(",", result);
