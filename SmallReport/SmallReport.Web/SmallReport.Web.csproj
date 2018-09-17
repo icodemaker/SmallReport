@@ -148,7 +148,7 @@
           <IISUrl>http://localhost:3090/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>True</UseCustomServer>
-          <CustomServerUrl>http://localhost:8080/</CustomServerUrl>
+          <CustomServerUrl>http://wx.qibu.net.cn</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

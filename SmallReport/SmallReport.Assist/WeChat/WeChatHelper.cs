@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
+using System.Web.Security;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -48,7 +49,7 @@ namespace SmallReport.Assist.WeChat
             string[] arrTmp = { Token, timestamp, nonce };
             Array.Sort(arrTmp);
             var tmpStr = string.Join("", arrTmp);
-            tmpStr = CommonHelper.Md5Hash(tmpStr);
+            tmpStr = FormsAuthentication.HashPasswordForStoringInConfigFile(tmpStr, "SHA1");
             tmpStr = tmpStr.ToLower();
             return tmpStr == signature;
         }
