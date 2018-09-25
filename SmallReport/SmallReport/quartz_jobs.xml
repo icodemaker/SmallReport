@@ -21,5 +21,22 @@
         <!-- 10m -->
       </cron>
     </trigger>
+    <job>
+      <name>ServiceExceptions</name>
+      <group>SmallReport</group>
+      <job-type>SmallReport.Jobs.ServiceExceptions,SmallReport</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+    <trigger>
+      <cron>
+        <name>ServiceExceptions.Trigger</name>
+        <group>SmallReport</group>
+        <job-name>ServiceExceptions</job-name>
+        <job-group>SmallReport</job-group>
+        <cron-expression>0 0/10 * * * ?</cron-expression>
+        <!-- 10m -->
+      </cron>
+    </trigger>
   </schedule>
 </job-scheduling-data>

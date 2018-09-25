@@ -137,6 +137,7 @@ namespace SmallReport.Assist.WeChat
             var asseccUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + OpenAppId + "&secret=" + OpenAppSecret;
             var atoken = new AccessTokenModel();
             var content = HttpGet(asseccUrl);
+            LogHelper.Info($"获取微信token结果：{content}");
             var token = ParseFromJson<AccessTokenModel>(content);
             atoken.access_token = token.access_token;
             atoken.expires_in = token.expires_in;

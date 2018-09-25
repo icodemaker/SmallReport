@@ -1,12 +1,18 @@
-﻿using Quartz;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using Quartz;
 using SmallReport.Assist.Quartz;
 using SmallReport.Assist.WeChat;
 using SmallReport.Service;
-using System;
 
 namespace SmallReport.Jobs
 {
-    public class QueryExceptions : IJob
+    public class ServiceExceptions : IJob
     {
         #region Attr
         private static readonly object LockObj = new object();
@@ -29,11 +35,22 @@ namespace SmallReport.Jobs
             var flag = true;
             try
             {
-                var result = QueryExceptionService.QueryException();
-                if (!string.IsNullOrWhiteSpace(result))
+                var result = QueryExceptionService.ServiceTimeout();
+                if (result == -1)
                 {
-                    LogHelper.Error($"发现异常数据:{result}");
-                    MessageHelper.SendExpMsg(result);
+                    MessageHelper.SendExpMsg($"请求ICAS服务器无响应 ...");
+                }
+                else if(result > 3000)
+                {
+                    MessageHelper.SendExpMsg($"服务器响应时间{result},已经超出接受范围");
+                }
+                else if(result > 10000)
+                {
+                    MessageHelper.SendExpMsg($"服务器响应时间{result},已经严重影响业务");
+                }
+                else
+                {
+                    LogHelper.Info($"ICAS服务器响应时间{result}");
                 }
             }
             catch (Exception e)

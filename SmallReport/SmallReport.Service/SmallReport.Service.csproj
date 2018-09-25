@@ -48,6 +48,10 @@
     <Compile Include="QueryExceptionService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SmallReport.Assist\SmallReport.Assist.csproj">
+      <Project>{2900ACAF-C94B-499C-818A-3684430A85B9}</Project>
+      <Name>SmallReport.Assist</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SmallReport.Entity\SmallReport.Entity.csproj">
       <Project>{0C633D45-4199-416F-9591-F384F667FB02}</Project>
       <Name>SmallReport.Entity</Name>
